@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+      * {
+        font-family: "East Sea Dokdo", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .my-title {
+        width: 300px;
+        height: 200px;
+
+        color: whitesmoke;
+        text-align: center;
+        padding-top: 20px;
+        border-radius: 8px;
+        background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+        background-position: center;
+        background-size: cover;
+      }
+      .whole-box {
+        /* background-color: green; 구역이 안보이니까 이렇게 해두는게 좋음*/
+        width: 300px;
+        margin: 50px auto 0px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="whole-box">
+      <div class="my-title">
+        <h1>로그인 페이지</h1>
+        <h5>아이디, 비밀번호를 입력해주세요</h5>
+      </div>
+      <div>
+        <label for="id">ID: </label>
+        <input id="id" type="text" />
+      </div>
+      <div>
+        <label for="pw">PW: </label>
+        <input id="pw" type="password" />
+      </div>
+      <input type="submit" value="로그인하기" />
+    </div>
+  </body>
+</html>
+<!--
+  문제 : input끼리 개행이 안 됨
+  해결 : <p>나 <div> 로 구획을 나눌 것
+  강의정답코드 :
+	<body>
+		<h1>로그인 페이지</h1>
+		<p>ID: <input type="text"/></p>
+		<p>PW: <input type="text"/></p>
+		<button>로그인하기</button>
+	</body>
+</html>
+-->
