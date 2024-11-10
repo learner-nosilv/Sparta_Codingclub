@@ -1,19 +1,20 @@
 # Sparta_Codingclub
 
-내일배움캠프 백엔드(Spring) 5기 2024-11  
+내일배움캠프 백엔드(Spring) 5기 2024-11
+
 🔅취업하자, 나를 위하여 내 사람들을 위하여🔅
+
+사전캠프 2024-11-06 ~ 본캠프
 
 ---
 
-## 사전캠프 2024-11-06 ~ 본캠프
-
-### 📁 Web_basic → [(사전) 웹개발종합반](https://spartacodingclub.kr/online/web_basic)
+## 📁 Web_basic → [(사전) 웹개발종합반](https://spartacodingclub.kr/online/web_basic)
 
 - 노션 토글열기 `ctrl + alt + T`
 - 뼈대자동완성 `! + ↵` 혹은 `html:5 + ↵`
 - 파일브라우저열기 `alt + B`
 
-**1주차**
+### **1주차**
 
 - 태그는 외우는 것이 아니고 검색해서 가져다가 쓰는 것이다
 - CSS는 요소(element)에 명찰을 붙이고 그 명찰을 부르는 형식으로 꾸밀 수 있다.
@@ -36,4 +37,9 @@
   - `align-items: center;`
 - 남이 만들어 놓은 예쁜 CSS 꾸러미 → `Bootstrap부트스트랩` ─ _붓을 쥘 줄 아는 것과 그림을 예쁘게 그릴 줄 아는 것은 다른 겁니다._
 
-## ![Chap.1 result](image.png)
+![Chap.1 result](1주차-코딩결과.png)
+
+### **2주차**
+
+↓ **1주차 복습** | Spartaflix
+![Chap.2 result](2주차-1주차복습-코딩결과.png)
