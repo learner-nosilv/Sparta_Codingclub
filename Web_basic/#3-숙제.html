@@ -21,11 +21,11 @@
     ></script>
     <script src="../static/firebase2.js" type="module"></script>
     <style>
-      /* 구글 폰트 import url 넣어주세요. */
+      /* 요구사항1,3. 구글 폰트 import url 넣어주세요. */
       @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=East+Sea+Dokdo&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=East+Sea+Dokdo&family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-      /* 구글 폰트 CSS rules를 전체 적용해 주세요. */
+      /* 요구사항3. 구글 폰트 CSS rules를 전체 적용해 주세요. */
       * {
         font-family: "Gowun Dodum", sans-serif;
         font-weight: 400;
@@ -44,14 +44,22 @@
         height: 650px;
         display: flex;
         flex-direction: column;
+        /*예시 사진과 유사하게 맞추기 위해서 왼쪽패딩만듬*/
+        padding-left: 100px;
       }
 
-      .header > h1 {
-        margin: 0;
+      /* [ERROR] >는 직계 자손 연산자인데, .header의 직계 자손에는 h1이 없음(그냥 자손) */
+      .header h1 {
+        /* margin: 0; 없어도 그만이라서 주석처리*/
         font-size: 40px;
+        /* 요구사항1. jumbotron <h1> 태그안에 `Blank Han Sans` 폰트 스타일을 적용해 주세요. */
+        font-family: "Black Han Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
       }
 
-      .header > div {
+      /* [ERROR] 아래 property를 적용하고자 하는 요소가 div가 아니라 p로 보여서 수정함(+직계자손X)*/
+      .header p {
         font-size: 18px;
         margin-top: 10px;
       }
