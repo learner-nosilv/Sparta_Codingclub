@@ -98,7 +98,7 @@
       #input-card { */
       .post {
         width: 500px;
-        margin: 0px 0px 0px 135px;
+        /* margin: 0px 0px 0px 135px; 필요없는 선언*/
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 10px;
@@ -299,6 +299,7 @@
       </div>
     </header>
 
+    <!--요구사항1. Bootstrap을 활용해서, jumbotron을 완성하세요 .-->
     <!-- 점보 트론 적용 jumbotron -->
     <!-- - https://getbootstrap.com/
     - Bootstrap 사이트에서 jumbotron가져와 vscode에 붙여 넣어주세요.
@@ -306,55 +307,66 @@
     - jumbotron의 내용을 예시사진과 똑같게 내용을 변경해 주세요.
         - 필요 없는 버튼, div를 적절하게 삭제
     - jumbotron <h1> 태그안에 `Blank Han Sans` 폰트 스타일을 적용해 주세요. -->
-
-    <!-- 부트스트랩 인풋 박스 적용-->
-    <!-- id="input-card" 제거 -->
-    <div class="post">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="floatingInput"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">음식 이미지 주소</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          id="foodTitle"
-          placeholder="영화 제목"
-        />
-        <label for="foodTitle">음식명</label>
-      </div>
-      <div class="input-group mb-3">
-        <button class="btn btn-outline-secondary" type="button">별점</button>
-        <select
-          class="form-select"
-          id="inputGroupSelect03"
-          aria-label="Example select with button addon"
-        >
-          <option selected>별점 선택</option>
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-      </div>
-      <div class="form-floating">
-        <textarea
-          class="form-control"
-          placeholder="Leave a comment here"
-          id="floatingTextarea"
-        ></textarea>
-        <label for="floatingTextarea">추천 이유</label>
-      </div>
-      <div class="button2">
-        <button type="button" class="btn btn-danger" id="addBtn">
-          기록하기
-        </button>
+    <div class="header">
+      <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">스파르타 푸드파이터</h1>
+          <p class="col-md-8 fs-4">
+            본인만의 맛집을 소개하는 사이트입니다.<br />맛집을 소개해 주세요!
+          </p>
+          <!-- 부트스트랩 인풋 박스 적용-->
+          <!-- id="input-card" 제거 -->
+          <div class="post">
+            <div class="form-floating mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="floatingInput"
+                placeholder="name@example.com"
+              />
+              <label for="floatingInput">음식 이미지 주소</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="foodTitle"
+                placeholder="영화 제목"
+              />
+              <label for="foodTitle">음식명</label>
+            </div>
+            <div class="input-group mb-3">
+              <button class="btn btn-outline-secondary" type="button">
+                별점
+              </button>
+              <select
+                class="form-select"
+                id="inputGroupSelect03"
+                aria-label="Example select with button addon"
+              >
+                <option selected>별점 선택</option>
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+              </select>
+            </div>
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                placeholder="Leave a comment here"
+                id="floatingTextarea"
+              ></textarea>
+              <label for="floatingTextarea">추천 이유</label>
+            </div>
+            <div class="button2">
+              <button type="button" class="btn btn-danger" id="addBtn">
+                기록하기
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
