@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fetch 시작하기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      function hey() {
+        let url =
+          "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99";
+        fetch(url)
+          // 이 url로 웹 통신을 요청하고, 요청타입은 get방식을 default로 한다.
+          .then((res) => res.json())
+          // 통신 요청으로 받은 데이터는 res 라는 이름으로 json화 한다.
+          .then((data) => {
+            // json화 된 데이터에 data라는 이름을 붙인다
+            let rows = data["RealtimeCityAir"]["row"];
+            rows.forEach((a) => {
+              let gu_name = a["MSRSTE_NM"];
+              let gu_mise = a["IDEX_NM"];
+              let gu_pm10 = a["PM10"];
+              let gu_pm25 = a["PM25"];
+              console.log(
+                gu_name +
+                  ": " +
+                  gu_mise +
+                  "→ PM10: " +
+                  gu_pm10 +
+                  ", PM25: " +
+                  gu_pm25
+              );
+
+              // console에 data를 출력
+            });
+          });
+      }
+    </script>
+  </head>
+
+  <body>
+    <button onclick="hey()">fetch 연습!</button>
+  </body>
+</html>

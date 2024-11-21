@@ -1,0 +1,237 @@
+<!--추억저장하기/카드추가 구현하기-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>나만의 추억앨범</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+      * {
+        font-family: "East Sea Dokdo", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .my-title {
+        background-image: url("https://images.unsplash.com/photo-1511992243105-2992b3fd0410?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80");
+        background-position: center;
+        background-size: cover;
+        height: 250px;
+        color: whitesmoke;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .my-title > button {
+        width: 100px;
+        height: 45px;
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 8px;
+        margin-top: 15px;
+      }
+      .my-cards {
+        width: 1200px;
+        margin: 30px auto 0px auto;
+      }
+      .posting-box {
+        width: 500px;
+        margin: 30px auto 0px auto;
+        padding: 20px;
+        box-shadow: 0px 0px 3px 0px blue;
+        border-radius: 8px;
+      }
+      .btn-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .btn-box > button:first-child {
+        margin-right: 5px;
+      }
+    </style>
+    <script>
+      //문서가 준비되면 바로 실행되는 함수
+      $(document).ready(function () {
+        let url =
+          "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99";
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            let mise = data["RealtimeCityAir"]["row"][0]["IDEX_NM"];
+            $("#mise_info").text(mise);
+          });
+      });
+
+      function openclose() {
+        $("#postingbox").toggle();
+        // $('#postingbox')-지정하기
+        //  .toggle - 열기 닫기, 사라지는 것이 아니라 display:none 변경
+      }
+      // 입력한 값대로 새로운 카드를 생성하는 함수*/
+      function makeCard() {
+        // 입력한 input값 가져오기
+        let imageInput = $("#imageInput").val();
+        let titleInput = $("#titleInput").val();
+        let contentInput = $("#contentInput").val();
+        let dateInput = $("#dateInput").val();
+
+        // 카드 만들어서 붙이기
+        let newCard_html = `<div class="col">
+          <div class="card h-100">
+            <img
+              src="${imageInput}"
+              class="card-img-top"
+              alt="driving the long-road"
+            />
+            <div class="card-body">
+              <h5 class="card-title">${titleInput}</h5>
+              <p class="card-text">${contentInput}</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">${dateInput}</small>
+            </div>
+          </div>
+        </div>`;
+        $("#my-cardlist").append(newCard_html);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="my-title">
+      <h1>나만의 추억앨범</h1>
+      <p>현재 서울의 미세먼지 : <span id="mise_info">판단 중···</span></p>
+      <button onclick="openclose()">추억 저장하기</button>
+      <!--눌렀을 때 자바스크립트 작동!-->
+    </div>
+    <div class="posting-box" id="postingbox">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="imageInput"
+          placeholder="앨범 이미지"
+        />
+        <label for="floatingInput">앨범 이미지</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="titleInput"
+          placeholder="앨범 제목"
+        />
+        <label for="floatingInput">앨범 제목</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="contentInput"
+          placeholder="앨범 내용"
+        />
+        <label for="floatingInput">앨범 내용</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="dateInput"
+          placeholder="앨범 날짜"
+        />
+        <label for="floatingInput">앨범 날짜</label>
+      </div>
+      <div class="btn-box">
+        <button onclick="makeCard()" type="button" class="btn btn-dark">
+          기록하기
+        </button>
+        <button type="button" class="btn btn-outline-dark">닫기</button>
+      </div>
+    </div>
+    <div class="my-cards">
+      <div id="my-cardlist" class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <img
+              src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+              class="card-img-top"
+              alt="driving the long-road"
+            />
+            <div class="card-body">
+              <h5 class="card-title">드라이브를 가다!</h5>
+              <p class="card-text">
+                제주도 여행을 갔는데 제일 인상적이었던 건 역시 바다였다.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">2024-11-08</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img
+              src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+              class="card-img-top"
+              alt="driving the long-road"
+            />
+            <div class="card-body">
+              <h5 class="card-title">드라이브를 가다!</h5>
+              <p class="card-text">
+                제주도 여행을 갔는데 제일 인상적이었던 건 역시 바다였다.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">2024-11-08</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img
+              src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+              class="card-img-top"
+              alt="driving the long-road"
+            />
+            <div class="card-body">
+              <h5 class="card-title">드라이브를 가다!</h5>
+              <p class="card-text">
+                제주도 여행을 갔는데 제일 인상적이었던 건 역시 바다였다.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">2024-11-08</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100">
+            <img
+              src="https://images.unsplash.com/photo-1446768500601-ac47e5ec3719?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1446&q=80"
+              class="card-img-top"
+              alt="driving the long-road"
+            />
+            <div class="card-body">
+              <h5 class="card-title">드라이브를 가다!</h5>
+              <p class="card-text">
+                제주도 여행을 갔는데 제일 인상적이었던 건 역시 바다였다.
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">2024-11-08</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
