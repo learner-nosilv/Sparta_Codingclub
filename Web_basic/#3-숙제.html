@@ -84,12 +84,26 @@
         font-size: 14px;
       }
 
+      /*[ERROR] 부트스트랩 인풋 박스에 이 CSS가 적용되면 안 됨
       .post {
         width: 500px;
         margin: 20px 0px 1px 20px;
         padding: 20px;
         box-shadow: 0px 0px 3px 0px transparent;
         background-color: wheat;
+      } 
+
+      아래에 있는 #input-card의 properties가 적용되어야 해서 옮겨옴
+      + 굳이 ID로 만들 필요가 없으므로 ID는 삭제함
+      #input-card { */
+      .post {
+        width: 500px;
+        margin: 0px 0px 0px 135px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        float: left;
       }
 
       .form-floating input,
@@ -179,16 +193,6 @@
 
       .card-button > :hover {
         background-color: darkorange;
-      }
-
-      #input-card {
-        width: 500px;
-        margin: 0px 0px 0px 135px;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        float: left;
       }
 
       .form-floating input,
@@ -304,7 +308,8 @@
     - jumbotron <h1> 태그안에 `Blank Han Sans` 폰트 스타일을 적용해 주세요. -->
 
     <!-- 부트스트랩 인풋 박스 적용-->
-    <div class="post" id="input-card">
+    <!-- id="input-card" 제거 -->
+    <div class="post">
       <div class="form-floating mb-3">
         <input
           type="email"
