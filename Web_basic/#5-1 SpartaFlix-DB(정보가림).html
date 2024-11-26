@@ -133,10 +133,13 @@
         // 구해온 기온 값 끼워넣기
       });
 
+      // script가 module이 되면, onclick이 작동이 잘 안 되므로 다른 방법 사용
       // 영화기록하기를 버튼 누르면 기록창이 열렸다/닫혔다 하는 기능
-      function openclose() {
+      $("#openclose-btn").click(async function () {
         $("#movie-postingbox").toggle();
-      }
+        // $('#movie-postingbox') : 해당 ID 요소 지정하기
+        // .toggle - 열기 닫기, 사라지는 것이 아니라 display:none 변경
+      });
 
       function addCard() {
         let image = $("#imageInput").val();
@@ -230,7 +233,7 @@
             마주하고, 처절하게 무너져가며 심연 속의 진실을 쫓는 부녀 스릴러
           </p>
           <button
-            onclick="openclose()"
+            id="openclose-btn"
             type="button"
             class="btn btn-outline-light"
           >
