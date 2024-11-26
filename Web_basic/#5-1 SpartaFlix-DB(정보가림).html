@@ -77,91 +77,104 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      $(document).ready(function () {
-        var today = new Date();
-        var year = today.getFullYear();
-        var month = today.getMonth() + 1; // 0부터 시작해서 1더해주기
-        var date = today.getDate();
-        var hour = today.getHours();
-        var minute = today.getMinutes();
+      // --- 실시간 일원본동의 기온을 기상청open API에서 가져온 후 원하는 위치에 표시하는 파트
+      // 1. 기상청 open API가 이해할 수 있는 형태의 시간값 구하기 (year_month_date, hour_minute)
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = today.getMonth() + 1; // 0부터 시작해서 1더해주기
+      var date = today.getDate();
+      var hour = today.getHours();
+      var minute = today.getMinutes();
 
-        var year_month_date = "" + year;
-        var hour_minute = "";
+      var year_month_date = "" + year;
+      var hour_minute = "";
 
-        // 한 자리 수인 경우 앞에 0 붙이기
-        if (month < 10) {
-          year_month_date += "0";
-        }
-        year_month_date += month;
+      // 한 자리 수인 경우 앞에 0 붙이기
+      if (month < 10) {
+        year_month_date += "0";
+      }
+      year_month_date += month;
 
-        if (date < 10) {
-          year_month_date += "0";
-        }
-        // 한 시간 전 기상 데이터를 가져올 예정이므로 자정은 전 날로 ㄱㄱ
-        if (hours == 0) {
-          hour = 24;
-          date--;
-        }
-        year_month_date += date;
-        hour--; // 한 시간 전 기상데이터를 가져오기
+      if (date < 10) {
+        year_month_date += "0";
+      }
+      // 한 시간 전 기상 데이터를 가져올 예정이므로 자정은 전 날로 ㄱㄱ
+      if (hours == 0) {
+        hour = 24;
+        date--;
+      }
+      year_month_date += date;
+      hour--; // 한 시간 전 기상데이터를 가져오기
 
-        if (hour < 10) {
-          hour_minute += "0";
-        }
-        hour_minute += hour;
-        if (minute < 10) {
-          hour_minute += "0";
-        }
-        hour_minute += minute;
+      if (hour < 10) {
+        hour_minute += "0";
+      }
+      hour_minute += hour;
+      if (minute < 10) {
+        hour_minute += "0";
+      }
+      hour_minute += minute;
 
-        let url =
-          "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=SRziidssnNrEQ9eN35TzQ62G4qRuYvnGX84HNjBe%2BqnKh27pls6ZBnbi7lv7kCHG0woyo5geBgcTbi8J6zcSDA%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&base_date=" +
-          year_month_date +
-          "&base_time=" +
-          hour_minute +
-          "&nx=62&ny=125";
+      // 기상청openAPI 작성
+      let url =
+        "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=SRziidssnNrEQ9eN35TzQ62G4qRuYvnGX84HNjBe%2BqnKh27pls6ZBnbi7lv7kCHG0woyo5geBgcTbi8J6zcSDA%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&base_date=" +
+        year_month_date +
+        "&base_time=" +
+        hour_minute +
+        "&nx=62&ny=125";
 
-        // 실시간 일원본동 기온
-        fetch(url)
-          .then((res) => res.json())
-          .then((data) => {
-            let temperature_celsius =
-              data["response"]["body"]["items"]["item"][3]["obsrValue"];
-            $("#temperature").text(temperature_celsius);
-          });
+      // 실시간 일원본동 기온을 기상청open api에서 받아온 후 website에 출력
+      fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          let temperature_celsius =
+            data["response"]["body"]["items"]["item"][3]["obsrValue"];
+          $("#temperature").text(temperature_celsius); // 구해온 기온 값 끼워넣기
+        });
+      //--- [종료지점] 실시간 일원본동의 기온을 기상청open API에서 가져온 후 원하는 위치에 표시하는 파트
 
-        // 구해온 기온 값 끼워넣기
-      });
+      // 2. 자동으로 DB에서 영화자료를 뽑은 후, 화면에 카드형태로 노출시키는 파트
+      let image = $("#imageInput").val();
+      let title = $("#titleInput").val();
+      let content = $("#contentInput").val();
+      let star = $("#starInput").val();
+      let tempCard_html = `<div class="col">
+           <div class="card h-100">
+             <img
+               src="${image}"
+               class="card-img-top"
+               alt="movie-poster"
+             />
+             <div class="card-body">
+               <h5 class="card-title">${title}</h5>
+               <p class="card-text">${star}</p>
+               <p class="card-text">${content}</p>
+             </div>
+           </div>
+         </div>`;
+      $("#movie-cardslist").append(tempCard_html);
 
       // script가 module이 되면, onclick이 작동이 잘 안 되므로 다른 방법 사용
-      // 영화기록하기를 버튼 누르면 기록창이 열렸다/닫혔다 하는 기능
+      // 3. 영화기록하기를 버튼 누르면 기록창이 열렸다/닫혔다 하는 기능
       $("#openclose-btn").click(async function () {
         $("#movie-postingbox").toggle();
         // $('#movie-postingbox') : 해당 ID 요소 지정하기
         // .toggle - 열기 닫기, 사라지는 것이 아니라 display:none 변경
       });
 
-      function addCard() {
-        let image = $("#imageInput").val();
-        let title = $("#titleInput").val();
-        let content = $("#contentInput").val();
-        let star = $("#starInput").val();
-        let tempCard_html = `<div class="col">
-          <div class="card h-100">
-            <img
-              src="${image}"
-              class="card-img-top"
-              alt="movie-poster"
-            />
-            <div class="card-body">
-              <h5 class="card-title">${title}</h5>
-              <p class="card-text">${star}</p>
-              <p class="card-text">${content}</p>
-            </div>
-          </div>
-        </div>`;
-        $("#movie-cardslist").append(tempCard_html);
-      }
+      // script가 module이 되면, onclick이 작동이 잘 안 되므로 다른 방법 사용
+      // 4. '기록하기'버튼을 누르면 기입한 정보들을 DB에 저장한 후 화면을 새로고침하는 파트
+      $("#addCard-btn").click(async function () {
+        let doc = {
+          image: $("#imageInput").val(),
+          title: $("#titleInput").val(),
+          content: $("#contentInput").val(),
+          date: $("#dateInput").val(),
+        }; // 넣고 싶은 데이터
+        await addDoc(collection(db, "SpartaFlix-movies"), doc); // DB에 넣기
+        alert("저장 완료!");
+        window.location.reload();
+      });
     </script>
   </head>
   <body>
@@ -282,7 +295,7 @@
           <option value="⭐">⭐</option>
         </select>
       </div>
-      <button type="button" onclick="addCard()" class="btn btn-danger">
+      <button type="button" id="addCard-btn" class="btn btn-danger">
         기록하기
       </button>
     </div>
