@@ -292,9 +292,9 @@
       });
       // [과제5] 3. 요구사항 : firebase 데이터 읽기 및 카드 생성 코드를 완성하기
       // 데이터 읽기 파트
-      $(".row-cols-3").empty();
-      const querySnapshot = await getDocs(collection(db, "foods"));
-
+      $(".row-cols-3").empty(); // 기존 카드내용 비우기
+      const querySnapshot = await getDocs(collection(db, "foods")); // DB내용 가져오기
+      // 가져온 DB내용 하나씩 읽어서 카드로 만드는 파트
       querySnapshot.forEach((doc) => {
         let title = doc.data().title;
         let comment = doc.data().comment;
