@@ -271,7 +271,7 @@
       $("#addBtn").click(async function () {
         // title_input, comment_input, image_input id를 가진 HTML 요소에서 값을 가져와서 title, comment, image 변수에 저장해 주세요.
         let title = $("#foodTitle").val();
-        let comment = $("#recommandReasson").val();
+        let comment = $("#recommandReason").val();
         let image = $("#imageUrl").val();
         let star = $("#stars").val();
 
@@ -290,8 +290,8 @@
           console.error("Error adding document: ", e);
         }
       });
-      // [과제5] 2. 요구사항 :  firebase 데이터 추가 코드를 완성하기
-      // 데이터 읽기 및 카드 생성
+      // [과제5] 3. 요구사항 : firebase 데이터 읽기 및 카드 생성 코드를 완성하기
+      // 데이터 읽기 파트
       $(".row-cols-3").empty();
       const querySnapshot = await getDocs(collection(db, "foods"));
 
@@ -301,9 +301,24 @@
         let star = "⭐".repeat(doc.data().star);
         let image = doc.data().image;
 
+        // 카드 생성 파트
         // 문서의 title, comment, image, star 필드에서 데이터를 추출한 변수명을 갖고,
         // tempHtml 문자열에 각 데이터를 포함한 카드의 HTML 코드를 생성하세요.
-
+        let tempHtml = `<div class="col">
+          <div class="card h-100">
+            <img
+              src="${image}"
+              class="card-img-top"
+              alt="${title}"
+            />
+            <div class="card-body">
+              <h5 class="card-title">${title}</h5>
+              <p class="card-text">${star}</p>
+              <p class="card-text">${comment}</p>
+              <button class="card-button">주문하기</button>
+            </div>
+          </div>
+        </div>`;
         $(".row-cols-3").append(tempHtml);
       });
     </script>
@@ -439,7 +454,7 @@
         - <button> 태그를 생성해 주세요.
         - <button> 태그안에 `card-button` 클래스를 부여해 주세요.
         - 카드에 내용은 자유롭게 채워 주세요. -->
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="row row-cols-3 row-cols-md-3 g-4">
         <div class="col">
           <div class="card h-100">
             <img
