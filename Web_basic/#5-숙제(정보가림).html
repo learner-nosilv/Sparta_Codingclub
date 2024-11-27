@@ -266,13 +266,22 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      // 데이터 추가
+      // [과제5] 2. 요구사항 :  firebase 데이터 추가 코드를 완성하기
+      // '기록하기' 버튼 클릭 시, 데이터를 DB에 추가
       $("#addBtn").click(async function () {
         // title_input, comment_input, image_input id를 가진 HTML 요소에서 값을 가져와서 title, comment, image 변수에 저장해 주세요.
+        let title = $("#foodTitle").val();
+        let comment = $("#recommandReasson").val();
+        let image = $("#imageUrl").val();
+        let star = $("#stars").val();
 
         try {
           const docRef = await addDoc(collection(db, "foods"), {
             // 각각 담은 변수를 컬렉션 필드에 title, comment, image에 각각 넣어주세요.
+            title: title,
+            comment: comment,
+            image: image,
+            star: star,
           });
 
           alert("음식이 추가 되었습니다!");
@@ -281,7 +290,7 @@
           console.error("Error adding document: ", e);
         }
       });
-
+      // [과제5] 2. 요구사항 :  firebase 데이터 추가 코드를 완성하기
       // 데이터 읽기 및 카드 생성
       $(".row-cols-3").empty();
       const querySnapshot = await getDocs(collection(db, "foods"));
@@ -373,7 +382,7 @@
               <input
                 type="email"
                 class="form-control"
-                id="floatingInput"
+                id="imageUrl"
                 placeholder="name@example.com"
               />
               <label for="floatingInput">음식 이미지 주소</label>
@@ -383,7 +392,7 @@
                 type="text"
                 class="form-control"
                 id="foodTitle"
-                placeholder="영화 제목"
+                placeholder="foodName"
               />
               <label for="foodTitle">음식명</label>
             </div>
@@ -393,7 +402,7 @@
               </button>
               <select
                 class="form-select"
-                id="inputGroupSelect03"
+                id="stars"
                 aria-label="Example select with button addon"
               >
                 <option selected>별점 선택</option>
@@ -408,7 +417,7 @@
               <textarea
                 class="form-control"
                 placeholder="Leave a comment here"
-                id="floatingTextarea"
+                id="recommandReason"
               ></textarea>
               <label for="floatingTextarea">추천 이유</label>
             </div>
