@@ -8,7 +8,7 @@
 
 ---
 
-## 📁 Web_basic → [(사전) 웹개발종합반](https://spartacodingclub.kr/product/46)
+## 📁 Web_basic → [(사전) 웹개발종합반](https://spartacodingclub.kr/online/web_basic)
 
 - 노션 토글열기 `ctrl + alt + T`
 - 뼈대자동완성 `! + ↵` 혹은 `html:5 + ↵`
